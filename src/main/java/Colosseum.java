@@ -72,7 +72,57 @@ public class Colosseum {
      *         Implement this function.
      */
     public static Pokemon buildPokemon() {
+        System.out.println("Please name your Pokemon: ");
+        String tempName = myScan.next();
+        if (tempName.equals("")) {
+            while (tempName.equals("")) {
+                System.out.println("Input a non blank name");
+                tempName = myScan.next();
+            }
+        }
+        String name = tempName;
+        System.out.println("How many hit points will it have? (1-50): ");
+        int tempHitPoints = myScan.nextInt();
+        if (tempHitPoints > 1 && tempHitPoints < MAX_HIT_POINTS) {
+        } else {
+            while (tempHitPoints < 1 || tempHitPoints > MAX_HIT_POINTS) {
+                System.out.println("Sorry. Hit points must be between 1 and 50: ");
+                tempHitPoints = myScan.nextInt();
+            }
+        }
+        int hitPoints = tempHitPoints;
+
+        System.out.println("Split fifty points between attack level and defense level");
+        System.out.println("Enter your attack level (1-49):");
+
+        int tempAttackLevel = myScan.nextInt();
+        if (tempAttackLevel > 1 && tempAttackLevel < MAX_HIT_POINTS) {
+        } else {
+            while (tempHitPoints < 1 || tempHitPoints > MAX_HIT_POINTS) {
+                System.out.println("Sorry. Hit points must be between 1 and 49: ");
+                tempAttackLevel = myScan.nextInt();
+            }
+        }
+        int attackLevel = tempAttackLevel;
+
+        System.out.println("Enter your defense level (1-" + (MAX_HIT_POINTS - attackLevel) + "): ");
+
+        int tempDefenseLevel = myScan.nextInt();
+        if (tempDefenseLevel > 1 && (tempDefenseLevel) < (MAX_HIT_POINTS - tempAttackLevel)) {
+        } else {
+            while (tempDefenseLevel < 1 || (tempDefenseLevel) > MAX_HIT_POINTS - tempAttackLevel) {
+                System.out.println("Sorry. Hit points must be between 1 and " + (MAX_HIT_POINTS - tempAttackLevel) + ": ");
+                tempDefenseLevel = myScan.nextInt();
+            }
+        }
+        int defenseLevel = tempAttackLevel;
+
         Pokemon tempPokemon = new Pokemon();
+        tempPokemon.name = name;
+        tempPokemon.hitPoints = hitPoints;
+        tempPokemon.attackLevel = attackLevel;
+        tempPokemon.defenseLevel = defenseLevel;
+
         return tempPokemon;
     }
 
@@ -90,9 +140,16 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-        System.out.println("Implement me!");
+        System.out.println(firstPokemon.name + " has " + firstPokemon.hitPoints + " hit points");
+        System.out.println(secondPokemon.name + " has " + secondPokemon.hitPoints + " hit points");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + " is currently ahead");
+        } else if (firstPokemon.hitPoints < secondPokemon.hitPoints) {
+            System.out.println(secondPokemon.name + " is currently ahead");
+        } else {
+            System.out.println("It's a tie!");
+        }
     }
-
     /**
      * Prints out the overall winner of the battle.
      * <p>
@@ -101,7 +158,11 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints <= 0) {
+            System.out.println(firstPokemon.name + " won!");
+        } else if (secondPokemon.hitPoints <= 0) {
+            System.out.println(secondPokemon.name + " won!") ;
+        }
     }
 
     /**
@@ -113,14 +174,12 @@ public class Colosseum {
         System.out.println("Player 1, build your Pokemon!");
         System.out.println("=================");
         firstPokemon = buildPokemon();
-        firstPokemon.name = "Chuchu";
 
         System.out.println("");
 
         System.out.println("Player 2, build your Pokemon!");
         System.out.println("==================");
         secondPokemon = buildPokemon();
-        secondPokemon.name = "Xyz";
     }
 
     /**
